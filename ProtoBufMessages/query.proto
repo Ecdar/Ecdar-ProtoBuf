@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package ProtoBufMessages;
+
+option java_multiple_files = false;
+option java_package = "ProtoBufMessages";
+option java_outer_classname = "QueryProtos";
+
+import "component.proto";
+
+message Query {
+    string query = 1;
+    IgnoredInputOutputs ignored_input_outputs = 3;
+    repeated Component components = 4;
+}
+
+message IgnoredInputOutputs {
+    repeated string ignored_inputs = 1;
+    repeated string ignored_outputs = 2;
+}
