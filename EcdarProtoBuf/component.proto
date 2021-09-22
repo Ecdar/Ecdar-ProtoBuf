@@ -1,11 +1,19 @@
 syntax = "proto3";
 
-package ProtoBufMessages;
+package EcdarProtoBuf;
 
 option java_multiple_files = false;
-option java_package = "ProtoBufMessages";
+option java_package = "EcdarProtoBuf";
 option java_outer_classname = "ComponentProtos";
 
+message Component {
+  oneof rep {
+    string json = 1;
+    string xml = 2;
+  }
+}
+
+/*
 message Location {
     string id = 1;
     string nickname = 2;
@@ -53,3 +61,4 @@ message Component {
     string color = 10;
     bool includeInPeriodicCheck = 11;
 }
+*/
