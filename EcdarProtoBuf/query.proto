@@ -19,10 +19,7 @@ message Query {
   string query = 2;
   IgnoredInputOutputs ignored_input_outputs = 3;
 }
-message QueryRequest {
-  repeated Query queries = 1;
-  // repeated string extra i/o
-}
+message QueryRequest { repeated Query queries = 1; }
 
 message ComponentsUpdateRequest {
   repeated Component components = 2;
