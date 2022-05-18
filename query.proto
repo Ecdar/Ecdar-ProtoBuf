@@ -37,6 +37,7 @@ message QueryResponse {
   message ComponentResult { Component component = 1; }
   message ConsistencyResult { bool success = 1; }
   message DeterminismResult { bool success = 1; }
+  message ImplementationResult { bool success = 1; }
 
   oneof result {
     RefinementResult refinement = 3;
@@ -44,6 +45,7 @@ message QueryResponse {
     ConsistencyResult consistency = 5;
     DeterminismResult determinism = 6;
     string error = 7;
+    ImplementationResult implementation = 8;
   }
 }
 
