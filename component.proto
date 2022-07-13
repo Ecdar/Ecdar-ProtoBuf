@@ -13,7 +13,6 @@ message Component {
   }
 }
 
-/*
 message Location {
     string id = 1;
     string nickname = 2;
@@ -38,16 +37,17 @@ message Nail {
 }
 
 message Edge {
-    string sourceLocation = 1;
-    string targetLocation = 2;
-    string status = 3;
-    string select = 4;
-    string guard = 5;
-    string update = 6;
-    string sync = 7;
-    repeated Nail nail = 8;
+    string id = 1;
+    Location sourceLocation = 2;
+    Location targetLocation = 3;
+    string status = 4;
+    string select = 5;
+    string guard = 6;
+    string update = 7;
+    string sync = 8;
+    repeated Nail nail = 9;
 }
-
+/*
 message Component {
     string name = 1;
     string declarations = 2;
