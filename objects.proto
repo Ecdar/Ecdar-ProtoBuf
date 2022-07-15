@@ -17,13 +17,16 @@ message StateTuple {
   message LocationTuple {
     string id = 1;
     string componentName = 2;
-    // Maybe the component name? or some comp id?
   }
   repeated LocationTuple locations = 1;
   repeated Zone federations = 2;
 }
 
 message Transition {
+  message EdgeTuple {
+    string id = 1;
+    string componentName = 2;
+  }
   // Figure out what we need here
-  repeated Edge edges = 1; //?
+  repeated EdgeTuple edges = 1; //?
 }
