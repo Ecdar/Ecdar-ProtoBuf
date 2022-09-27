@@ -15,13 +15,15 @@ message Zone {
 message StateTuple {
   message LocationTuple {
     string name = 1;
-    // Maybe the component name? or some comp id?
+    string componentName = 2;
   }
   LocationTuple location = 1;
   repeated Zone federation = 2;
 }
 
 message Transition {
-  // Figure out what we need here
-  // repeated Edge edges = 1; //?
+  oneof edge {
+    string json = 1;
+    string xml = 2;
+  }
 }
