@@ -14,30 +14,49 @@ message IgnoredInputOutputs {
   repeated string ignored_outputs = 2;
 }
 
-message Query {
-  int32 id = 1;
-  string query = 2;
-  IgnoredInputOutputs ignored_input_outputs = 3;
+message ComponentsInfo {
+  repeated Component components = 1;
+  uint32 components_hash = 2;
 }
-message QueryRequest { repeated Query queries = 1; }
 
-message ComponentsUpdateRequest {
-  repeated Component components = 2;
-  int32 etag = 3; // hash
+message UserTokenResponse {
+  int32 user_id = 1;
+}
+
+message QueryRequest {
+  int32 user_id = 1;
+  int32 query_id = 2;
+  string query = 3;
+  ComponentsInfo components_info = 4;
+  IgnoredInputOutputs ignored_input_outputs = 5;
 }
 
 message QueryResponse {
-  Query query = 1;
+  int32 query_id = 1;
 
   message RefinementResult {
     bool success = 1;
     repeated StateTuple relation = 2;
+    optional StateTuple state = 3;
   }
 
   message ComponentResult { Component component = 1; }
-  message ConsistencyResult { bool success = 1; }
-  message DeterminismResult { bool success = 1; }
-  message ImplementationResult { bool success = 1; }
+  message ConsistencyResult {
+    bool success = 1;
+    optional StateTuple state = 2;
+  }
+  message DeterminismResult {
+    bool success = 1;
+    optional StateTuple state = 2;
+  }
+  message ImplementationResult {
+    bool success = 1;
+    optional StateTuple state = 2;
+  }
+  message ReachabilityResult {
+    bool success = 1;
+    repeated Edge edges = 2;
+  }
 
   oneof result {
     RefinementResult refinement = 3;
@@ -46,19 +65,29 @@ message QueryResponse {
     DeterminismResult determinism = 6;
     string error = 7;
     ImplementationResult implementation = 8;
+    ReachabilityResult reachability = 9;
   }
 }
 
 message SimulationStartRequest {
-  string system = 1; // e.g. "(A || B) && C" or "A<=B"
+  string component_composition = 1; // example: A || B || A
+  ComponentsInfo components_info = 2;
+}
+
+message SimulationStartResponse {
+  int32 simulation_id = 1;
+  DecisionPoint initial_decision_point = 2;
 }
 
 message SimulationStepRequest {
-  StateTuple state = 1;
-  Transition transition = 2;
+  int32 simulation_id = 1;
+  Decision decision = 2;
 }
 
 message SimulationStepResponse {
-  StateTuple state = 1;
-  repeated Transition transitions = 2;
+  repeated DecisionPoint new_possible_decision_points = 1;
+}
+
+message SimulationStopRequest {
+  int32 simulation_id = 1;
 }

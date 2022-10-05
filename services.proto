@@ -13,6 +13,10 @@ import "query.proto";
 import "google/protobuf/empty.proto";
 
 service EcdarBackend {
-    rpc UpdateComponents(ComponentsUpdateRequest) returns (google.protobuf.Empty);
-    rpc SendQuery(Query) returns (QueryResponse);
+    rpc GetUserToken(google.protobuf.Empty) returns (UserTokenResponse);
+    rpc SendQuery(QueryRequest) returns (QueryResponse);
+
+    rpc StartSimulation(SimulationStartRequest) returns (SimulationStartResponse);
+    rpc TakeSimulationStep(SimulationStepRequest) returns (SimulationStepResponse);
+    rpc StopSimulation(SimulationStopRequest) returns (google.protobuf.Empty);
 }
