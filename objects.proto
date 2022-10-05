@@ -6,6 +6,8 @@ option java_multiple_files = false;
 option java_package = "EcdarProtoBuf";
 option java_outer_classname = "ObjectProtos";
 
+import "component.proto";
+
 message StateTuple {
   message LocationTuple {
     string name = 1;
@@ -73,4 +75,9 @@ message Edge {
 message Decision {
   State source = 1;
   Edge edge = 2;
+}
+
+message SimulationState {
+  Component component = 1;
+  repeated DecisionPoint decision_points = 2;
 }
