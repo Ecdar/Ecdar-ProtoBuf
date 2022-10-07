@@ -31,42 +31,54 @@ message QueryRequest {
   IgnoredInputOutputs ignored_input_outputs = 5;
 }
 
-message QueryResponse {
-  int32 query_id = 1;
-
-  message RefinementResult {
-    bool success = 1;
-    repeated StateTuple relation = 2;
-    optional StateTuple state = 3;
+message QueryResponse { 
+  oneof response {
+    QueryOk query_ok = 1;
+    UserTokenError user_token_error = 2;  
   }
 
-  message ComponentResult { Component component = 1; }
-  message ConsistencyResult {
-    bool success = 1;
-    optional StateTuple state = 2;
-  }
-  message DeterminismResult {
-    bool success = 1;
-    optional StateTuple state = 2;
-  }
-  message ImplementationResult {
-    bool success = 1;
-    optional StateTuple state = 2;
-  }
-  message ReachabilityResult {
-    bool success = 1;
-    repeated Edge edges = 2;
-  }
+  message QueryOk {
+    int32 query_id = 1;
 
-  oneof result {
-    RefinementResult refinement = 3;
-    ComponentResult component = 4;
-    ConsistencyResult consistency = 5;
-    DeterminismResult determinism = 6;
-    string error = 7;
-    ImplementationResult implementation = 8;
-    ReachabilityResult reachability = 9;
+    message RefinementResult {
+      bool success = 1;
+      repeated StateTuple relation = 2;
+      StateTuple state = 3;
+    }
+
+    message ComponentResult { Component component = 1; }
+    message ConsistencyResult {
+      bool success = 1;
+      StateTuple state = 2;
+    }
+    message DeterminismResult {
+      bool success = 1;
+      StateTuple state = 2;
+    }
+    message ImplementationResult {
+      bool success = 1;
+      StateTuple state = 2;
+    }
+    message ReachabilityResult {
+      bool success = 1;
+      repeated Edge edges = 2;
+    }
+
+    oneof result {
+      RefinementResult refinement = 3;
+      ComponentResult component = 4;
+      ConsistencyResult consistency = 5;
+      DeterminismResult determinism = 6;
+      string error = 7;
+      ImplementationResult implementation = 8;
+      ReachabilityResult reachability = 9;
+    }
   }
+}
+
+message UserTokenError {
+  int32 user_id = 1;
+  string error_message = 2;
 }
 
 message SimulationStartRequest {
