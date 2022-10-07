@@ -86,20 +86,11 @@ message SimulationStartRequest {
   ComponentsInfo components_info = 2;
 }
 
-message SimulationStartResponse {
-  int32 simulation_id = 1;
-  DecisionPoint initial_decision_point = 2;
-}
-
 message SimulationStepRequest {
-  int32 simulation_id = 1;
-  Decision decision = 2;
+  SimulationState current_state = 1;
+  Decision chosen_decision = 2;
 }
 
 message SimulationStepResponse {
-  repeated DecisionPoint new_possible_decision_points = 1;
-}
-
-message SimulationStopRequest {
-  int32 simulation_id = 1;
+  SimulationState new_state = 1;
 }

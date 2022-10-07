@@ -6,6 +6,8 @@ option java_multiple_files = false;
 option java_package = "EcdarProtoBuf";
 option java_outer_classname = "ObjectProtos";
 
+import "component.proto";
+
 message StateTuple {
   message LocationTuple {
     string name = 1;
@@ -24,26 +26,28 @@ message SpecificComponent {
   string component_name = 1;
   uint32 component_index = 2;
 }
+message ComponentClock {
+  SpecificComponent specific_component = 1;
+  string clock_name = 2;
+}
+
+message Constraint {
+  // This message represents if (!strict) { x - y <= c } else { x - y < c }
+  ComponentClock x = 1;
+  ComponentClock y = 2;
+  bool strict = 3;
+  int32 c = 4;
+}
+
+message Conjunction {
+  repeated Constraint constraints = 1;
+}
+
+message Disjunction {
+  repeated Conjunction conjunctions = 1;
+}
 
 message Zone {
-  message Disjunction {
-    message Conjunction {
-      message Constraint {
-        message ComponentClock {
-          SpecificComponent specific_component = 1;
-          string clock_name = 2;
-        }
-        // This message represents if (!strict) { x - y <= c } else { x - y < c }
-        ComponentClock x = 1;
-        ComponentClock y = 2;
-        bool strict = 3;
-        int32 c = 4;
-      }
-      repeated Constraint constraints = 1;
-    }
-
-    repeated Conjunction conjunctions = 1;
-  }
   Disjunction disjunction = 1;
 }
 
@@ -56,7 +60,7 @@ message LocationTuple {
 }
 
 message State {
-  LocationTuple location_tuple = 1;
+  string location_id = 1;
   Zone zone = 2;
 }
 
@@ -73,4 +77,9 @@ message Edge {
 message Decision {
   State source = 1;
   Edge edge = 2;
+}
+
+message SimulationState {
+  Component component = 1;
+  repeated DecisionPoint decision_points = 2;
 }
