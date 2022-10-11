@@ -43,25 +43,30 @@ message QueryResponse {
     message RefinementResult {
       bool success = 1;
       repeated StateTuple relation = 2;
-      StateTuple state = 3;
+      string reason = 3;
+      StateTuple state = 4;
     }
 
     message ComponentResult { Component component = 1; }
     message ConsistencyResult {
       bool success = 1;
-      StateTuple state = 2;
+      string reason = 2;
+      StateTuple state = 3;
     }
     message DeterminismResult {
       bool success = 1;
-      StateTuple state = 2;
+      string reason = 2;
+      StateTuple state = 3;
     }
     message ImplementationResult {
       bool success = 1;
-      StateTuple state = 2;
+      string reason = 2;
+      StateTuple state = 3;
     }
     message ReachabilityResult {
       bool success = 1;
-      repeated Edge edges = 2;
+      string reason = 2;
+      StateTuple state = 3;
     }
 
     oneof result {
