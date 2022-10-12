@@ -51,11 +51,12 @@ message Zone {
   Disjunction disjunction = 1;
 }
 
+message Location {
+  string id = 1;
+  SpecificComponent specific_component = 2;
+}
+
 message LocationTuple {
-  message Location {
-    string id = 1;
-    string component_name = 2;
-  }
   repeated Location locations = 1;
 }
 
