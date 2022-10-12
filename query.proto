@@ -14,10 +14,6 @@ message IgnoredInputOutputs {
   repeated string ignored_outputs = 2;
 }
 
-message ComponentsInfo {
-  repeated Component components = 1;
-  uint32 components_hash = 2;
-}
 
 message UserTokenResponse {
   int32 user_id = 1;

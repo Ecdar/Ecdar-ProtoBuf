@@ -60,7 +60,7 @@ message LocationTuple {
 }
 
 message State {
-  string location_id = 1;
+  LocationTuple location_id = 1;
   Zone zone = 2;
 }
 
@@ -80,6 +80,7 @@ message Decision {
 }
 
 message SimulationState {
-  Component component = 1;
-  repeated DecisionPoint decision_points = 2;
+  string component_composition = 1;
+  ComponentsInfo components = 2;
+  repeated DecisionPoint decision_points = 3;
 }
