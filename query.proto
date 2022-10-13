@@ -90,3 +90,22 @@ message SimulationStepRequest {
 message SimulationStepResponse {
   SimulationState new_state = 1;
 }
+
+// --- ALTERNATIVE SIMULATION API ---
+// message SimulationStartRequest {
+//   SimulationInfo simulation_info = 1;
+// }
+
+// message SimulationStepRequest {
+//   SimulationInfo simulation_info = 1;
+//   Decision chosen_decision = 2;
+// }
+
+// message SimulationStepResponse {
+//   DecisionPoint new_decision_point = 1;
+// }
+
+// message SimulationInfo {
+//   string component_composition = 2; // example: A || B || A
+//   ComponentsInfo components_info = 3;
+// }
