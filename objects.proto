@@ -17,11 +17,6 @@ message StateTuple {
   repeated Zone federation = 2;
 }
 
-message Transition {
-  // Figure out what we need here
-  // repeated Edge edges = 1; //?
-}
-
 message SpecificComponent {
   string component_name = 1;
   uint32 component_index = 2;
