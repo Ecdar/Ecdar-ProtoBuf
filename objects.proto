@@ -8,15 +8,6 @@ option java_outer_classname = "ObjectProtos";
 
 import "component.proto";
 
-message StateTuple {
-  message LocationTuple {
-    string name = 1;
-    // Maybe the component name? or some comp id?
-  }
-  LocationTuple location = 1;
-  repeated Zone federation = 2;
-}
-
 message SpecificComponent {
   string component_name = 1;
   uint32 component_index = 2;
@@ -42,7 +33,7 @@ message Disjunction {
   repeated Conjunction conjunctions = 1;
 }
 
-message Zone {
+message Federation {
   Disjunction disjunction = 1;
 }
 
@@ -57,7 +48,7 @@ message LocationTuple {
 
 message State {
   LocationTuple location_tuple = 1;
-  Zone zone = 2;
+  Federation federation = 2;
 }
 
 message DecisionPoint {

@@ -38,22 +38,22 @@ message QueryResponse {
 
     message RefinementResult {
       bool success = 1;
-      repeated StateTuple relation = 2;
-      StateTuple state = 3;
+      repeated State relation = 2;
+      State state = 3;
     }
 
     message ComponentResult { Component component = 1; }
     message ConsistencyResult {
       bool success = 1;
-      StateTuple state = 2;
+      State state = 2;
     }
     message DeterminismResult {
       bool success = 1;
-      StateTuple state = 2;
+      State state = 2;
     }
     message ImplementationResult {
       bool success = 1;
-      StateTuple state = 2;
+      State state = 2;
     }
     message ReachabilityResult {
       bool success = 1;
