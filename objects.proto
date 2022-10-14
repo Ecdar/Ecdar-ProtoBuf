@@ -12,6 +12,7 @@ message SpecificComponent {
   string component_name = 1;
   uint32 component_index = 2;
 }
+
 message ComponentClock {
   SpecificComponent specific_component = 1;
   string clock_name = 2;
