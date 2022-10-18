@@ -82,21 +82,6 @@ message UserTokenError {
   string error_message = 2;
 }
 
-// message SimulationStartRequest {
-//   string component_composition = 1; // example: A || B || A
-//   ComponentsInfo components_info = 2;
-// }
-
-// message SimulationStepRequest {
-//   SimulationState current_state = 1;
-//   Decision chosen_decision = 2;
-// }
-
-// message SimulationStepResponse {
-//   SimulationState new_state = 1;
-// }
-
-// --- ALTERNATIVE SIMULATION API ---
 message SimulationStartRequest {
   SimulationInfo simulation_info = 1;
 }
