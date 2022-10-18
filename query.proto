@@ -57,7 +57,8 @@ message QueryResponse {
     }
     message ReachabilityResult {
       bool success = 1;
-      repeated Edge edges = 2;
+      string reason = 2;
+      StateTuple state = 3;
     }
 
     oneof result {
