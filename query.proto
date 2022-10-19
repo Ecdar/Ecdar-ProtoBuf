@@ -14,51 +14,89 @@ message IgnoredInputOutputs {
   repeated string ignored_outputs = 2;
 }
 
-message Query {
-  int32 id = 1;
-  string query = 2;
-  IgnoredInputOutputs ignored_input_outputs = 3;
-}
-message QueryRequest { repeated Query queries = 1; }
 
-message ComponentsUpdateRequest {
-  repeated Component components = 2;
-  int32 etag = 3; // hash
+message UserTokenResponse {
+  int32 user_id = 1;
 }
 
-message QueryResponse {
-  Query query = 1;
+message QueryRequest {
+  int32 user_id = 1;
+  int32 query_id = 2;
+  string query = 3;
+  ComponentsInfo components_info = 4;
+  IgnoredInputOutputs ignored_input_outputs = 5;
+}
 
-  message RefinementResult {
-    bool success = 1;
-    repeated StateTuple relation = 2;
+message QueryResponse { 
+  oneof response {
+    QueryOk query_ok = 1;
+    UserTokenError user_token_error = 2;  
   }
 
-  message ComponentResult { Component component = 1; }
-  message ConsistencyResult { bool success = 1; }
-  message DeterminismResult { bool success = 1; }
-  message ImplementationResult { bool success = 1; }
+  message QueryOk {
+    int32 query_id = 1;
 
-  oneof result {
-    RefinementResult refinement = 3;
-    ComponentResult component = 4;
-    ConsistencyResult consistency = 5;
-    DeterminismResult determinism = 6;
-    string error = 7;
-    ImplementationResult implementation = 8;
+    message RefinementResult {
+      bool success = 1;
+      repeated State relation = 2;
+      string reason = 3;
+      State state = 4;
+    }
+
+    message ComponentResult { Component component = 1; }
+    message ConsistencyResult {
+      bool success = 1;
+      string reason = 2;
+      State state = 3;
+    }
+    message DeterminismResult {
+      bool success = 1;
+      string reason = 2;
+      State state = 3;
+    }
+    message ImplementationResult {
+      bool success = 1;
+      string reason = 2;
+      State state = 3;
+    }
+    message ReachabilityResult {
+      bool success = 1;
+      string reason = 2;
+      State state = 3;
+      repeated Edge edges = 4;
+    }
+
+    oneof result {
+      RefinementResult refinement = 3;
+      ComponentResult component = 4;
+      ConsistencyResult consistency = 5;
+      DeterminismResult determinism = 6;
+      string error = 7;
+      ImplementationResult implementation = 8;
+      ReachabilityResult reachability = 9;
+    }
   }
+}
+
+message UserTokenError {
+  int32 user_id = 1;
+  string error_message = 2;
 }
 
 message SimulationStartRequest {
-  string system = 1; // e.g. "(A || B) && C" or "A<=B"
+  SimulationInfo simulation_info = 1;
 }
 
 message SimulationStepRequest {
-  StateTuple state = 1;
-  Transition transition = 2;
+  SimulationInfo simulation_info = 1;
+  Decision chosen_decision = 2;
 }
 
 message SimulationStepResponse {
-  StateTuple state = 1;
-  repeated Transition transitions = 2;
+  DecisionPoint new_decision_point = 1;
+}
+
+message SimulationInfo {
+  string component_composition = 2; // example: A || B || A
+  ComponentsInfo components_info = 3;
 }
