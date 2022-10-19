@@ -14,10 +14,6 @@ message IgnoredInputOutputs {
   repeated string ignored_outputs = 2;
 }
 
-message ComponentsInfo {
-  repeated Component components = 1;
-  uint32 components_hash = 2;
-}
 
 message UserTokenResponse {
   int32 user_id = 1;
@@ -42,31 +38,31 @@ message QueryResponse {
 
     message RefinementResult {
       bool success = 1;
-      repeated StateTuple relation = 2;
+      repeated State relation = 2;
       string reason = 3;
-      StateTuple state = 4;
+      State state = 4;
     }
 
     message ComponentResult { Component component = 1; }
     message ConsistencyResult {
       bool success = 1;
       string reason = 2;
-      StateTuple state = 3;
+      State state = 3;
     }
     message DeterminismResult {
       bool success = 1;
       string reason = 2;
-      StateTuple state = 3;
+      State state = 3;
     }
     message ImplementationResult {
       bool success = 1;
       string reason = 2;
-      StateTuple state = 3;
+      State state = 3;
     }
     message ReachabilityResult {
       bool success = 1;
       string reason = 2;
-      StateTuple state = 3;
+      State state = 3;
     }
 
     oneof result {
@@ -87,15 +83,19 @@ message UserTokenError {
 }
 
 message SimulationStartRequest {
-  string component_composition = 1; // example: A || B || A
-  ComponentsInfo components_info = 2;
+  SimulationInfo simulation_info = 1;
 }
 
 message SimulationStepRequest {
-  SimulationState current_state = 1;
+  SimulationInfo simulation_info = 1;
   Decision chosen_decision = 2;
 }
 
 message SimulationStepResponse {
-  SimulationState new_state = 1;
+  DecisionPoint new_decision_point = 1;
+}
+
+message SimulationInfo {
+  string component_composition = 2; // example: A || B || A
+  ComponentsInfo components_info = 3;
 }
