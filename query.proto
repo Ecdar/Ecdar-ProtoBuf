@@ -38,31 +38,25 @@ message QueryResponse {
 
     message RefinementResult {
       bool success = 1;
-      repeated State relation = 2;
-      string reason = 3;
-      State state = 4;
+      string reason = 2;
     }
-
     message ComponentResult { Component component = 1; }
     message ConsistencyResult {
       bool success = 1;
       string reason = 2;
-      State state = 3;
     }
     message DeterminismResult {
       bool success = 1;
       string reason = 2;
-      State state = 3;
     }
     message ImplementationResult {
       bool success = 1;
       string reason = 2;
-      State state = 3;
     }
     message ReachabilityResult {
       bool success = 1;
       string reason = 2;
-      State state = 3;
+      repeated Edge edges = 3;
     }
 
     oneof result {
