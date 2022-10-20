@@ -25,7 +25,7 @@ message QueryRequest {
   string query = 3;
   ComponentsInfo components_info = 4;
   IgnoredInputOutputs ignored_input_outputs = 5;
-  bool should_reduce_clocks = 6;
+  optional bool should_reduce_clocks = 6;
 }
 
 message QueryResponse { 
