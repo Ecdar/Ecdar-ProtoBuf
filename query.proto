@@ -25,6 +25,7 @@ message QueryRequest {
   string query = 3;
   ComponentsInfo components_info = 4;
   IgnoredInputOutputs ignored_input_outputs = 5;
+  optional bool should_reduce_clocks = 6;
 }
 
 message QueryResponse { 
@@ -75,6 +76,11 @@ message QueryResponse {
       ImplementationResult implementation = 8;
       ReachabilityResult reachability = 9;
     }
+    message Information {
+      string subject = 1;
+      string message = 2;
+    }
+    repeated Information info = 10;
   }
 }
 
