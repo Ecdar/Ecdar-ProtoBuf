@@ -27,7 +27,7 @@ message QueryRequest {
   IgnoredInputOutputs ignored_input_outputs = 5;
 
   message Settings {
-    bool should_reduce_clocks = 1;
+    bool reduce_clocks = 1;
   }
 
   Settings settings = 6;
