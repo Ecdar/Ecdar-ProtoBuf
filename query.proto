@@ -114,3 +114,4 @@ message SimulationInfo {
   string component_composition = 2; // example: A || B || A
   ComponentsInfo components_info = 3;
 }
+
