@@ -27,7 +27,7 @@ message QueryRequest {
   IgnoredInputOutputs ignored_input_outputs = 5;
 
   message Settings {
-    bool reduce_clocks = 1;
+    optional int32 reduce_clocks_level = 1;
   }
 
   Settings settings = 6;
@@ -114,3 +114,4 @@ message SimulationInfo {
   string component_composition = 2; // example: A || B || A
   ComponentsInfo components_info = 3;
 }
+
