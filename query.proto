@@ -27,7 +27,13 @@ message QueryRequest {
   IgnoredInputOutputs ignored_input_outputs = 5;
 
   message Settings {
-    optional int32 reduce_clocks_level = 1;
+    message ClockReduction {
+      oneof Level {
+        int32 Depth = 1;
+        bool AllNone = 2;
+      }
+    }
+    ClockReduction reduce_clocks_level = 1;
   }
 
   Settings settings = 6;
