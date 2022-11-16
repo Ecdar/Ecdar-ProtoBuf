@@ -29,8 +29,8 @@ message QueryRequest {
   message Settings {
     message ClockReduction {
       oneof Level {
-        int32 Depth = 1;
-        bool AllNone = 2;
+        int32 Depth = 1;    // Specifies the depth of the clock reduction
+        bool All = 2;       // Determines if all (true) or nothing (false) should be clock reduced
       }
     }
     ClockReduction reduce_clocks_level = 1;
