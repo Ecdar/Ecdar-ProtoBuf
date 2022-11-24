@@ -110,10 +110,11 @@ message SimulationStepRequest {
 }
 
 message SimulationStepResponse {
-  DecisionPoint new_decision_point = 1;
+  repeated DecisionPoint new_decision_points = 1;
 }
 
 message SimulationInfo {
+  int32 user_id = 1;
   string component_composition = 2; // example: A || B || A
   ComponentsInfo components_info = 3;
 }
