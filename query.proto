@@ -9,12 +9,6 @@ option java_outer_classname = "QueryProtos";
 import "component.proto";
 import "objects.proto";
 
-message IgnoredInputOutputs {
-  repeated string ignored_inputs = 1;
-  repeated string ignored_outputs = 2;
-}
-
-
 message UserTokenResponse {
   int32 user_id = 1;
 }
@@ -24,7 +18,6 @@ message QueryRequest {
   int32 query_id = 2;
   string query = 3;
   ComponentsInfo components_info = 4;
-  IgnoredInputOutputs ignored_input_outputs = 5;
 
   message Settings {
     bool disable_clock_reduction = 1;
@@ -33,56 +26,92 @@ message QueryRequest {
   Settings settings = 6;
 }
 
+message FailureContext {
+  string system = 1;
+  State state = 2;
+  string action = 3;
+}
+
 message QueryResponse {
   int32 query_id = 1;
 
-  message RefinementResult {
-    bool success = 1;
-    repeated State relation = 2;
-    string reason = 3;
-    State state = 4;
-    repeated string action = 5;
+  message ComponentResult { Component component = 1; }
+
+  message RefinementFailure {
+    FailureContext context = 1;
+    ConsistencyFailure consistency = 4;
   }
 
-  message ComponentResult { Component component = 1; }
-  message ConsistencyResult {
-    bool success = 1;
-    string reason = 2;
-    State state = 3;
-    repeated string action = 4;
+  message ConsistencyFailure {
+    FailureContext context = 1;
+    DeterminismFailure determinism = 5;
   }
-  message DeterminismResult {
-    bool success = 1;
-    string reason = 2;
-    State state = 3;
-    repeated string action = 4;
+  message DeterminismFailure {
+    FailureContext context = 1;
   }
-  message ImplementationResult {
-    bool success = 1;
-    string reason = 2;
-    State state = 3;
+  message ImplementationFailure {
+    FailureContext context = 1;
+    ConsistencyFailure consistency = 5;
   }
-  message ReachabilityResult {
-    bool success = 1;
-    string reason = 2;
-    State state = 3;
+  message ModelFailure {
+    string system = 1;
+
+    message ActionFailure {
+      enum Relation {
+        NOT_SUBSET = 1;
+        NOT_DISJOINT = 2;
+      }
+      message ActionSet {
+        string system = 1;
+        repeated string actions = 2;
+      }
+      Relation failure = 2;
+      repeated ActionSet action_sets = 3;
+    }
+    oneof failure {
+      ActionFailure action = 2;
+      ConsistencyFailure consistency = 3;
+    }
+  }
+  message ReachabilityFailure {
+    
+  }
+
+  message ReachabilityPath {
     repeated Path component_paths = 4;
+  }
+  message Success {
+
+  }
+  message Error {
+    string error = 1;
   }
 
   oneof result {
-    RefinementResult refinement = 3;
-    ComponentResult component = 4;
-    ConsistencyResult consistency = 5;
-    DeterminismResult determinism = 6;
-    string error = 7;
-    ImplementationResult implementation = 8;
-    ReachabilityResult reachability = 9;
+    Component component = 2;
+    ConsistencyFailure consistency = 3;
+    DeterminismFailure determinism = 4;
+    ImplementationFailure implementation = 5;
+    ReachabilityFailure reachability = 6;
+    RefinementFailure refinement = 7;
+    ReachabilityPath reachability_path = 8;
+    
+    ModelFailure model = 99;
+    Success success = 100;
+    Error error = 101;
+
   }
+
   message Information {
-    string subject = 1;
-    string message = 2;
+    enum Serverity {
+      INFO = 0;
+      WARNING = 1;
+    }
+    Serverity serverity = 1;
+    string subject = 2;
+    string message = 3;
   }
-  repeated Information info = 10;
+  repeated Information info = 200;
 }
 
 message SimulationStartRequest {
@@ -95,7 +124,7 @@ message SimulationStepRequest {
 }
 
 message SimulationStepResponse {
-  repeated DecisionPoint new_decision_points = 1;
+  repeated Decision new_decision_points = 1;
 }
 
 message SimulationInfo {

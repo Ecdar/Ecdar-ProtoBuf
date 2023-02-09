@@ -13,15 +13,30 @@ message SpecificComponent {
   uint32 component_index = 2;
 }
 
-message ComponentClock {
-  SpecificComponent specific_component = 1;
-  string clock_name = 2;
+message Clock {
+  message ComponentClock {
+    SpecificComponent specific_component = 1;
+    string clock_name = 2;
+  }
+  message SystemClock {
+    uint32 clock_index = 1;
+  }
+  message Zero {}
+  oneof clock {
+    // When a clock is attached to a component
+    ComponentClock component_clock = 1;
+    // When a clock is not attached to a component
+    SystemClock system_clock = 2;
+    // The zero clock
+    Zero zero = 3;
+  }
 }
 
+
 message Constraint {
-  // This message represents if (!strict) { x - y <= c } else { x - y < c }
-  ComponentClock x = 1;
-  ComponentClock y = 2;
+  // This message represents if (strict) { x - y < c } else { x - y <= c }
+  Clock x = 1;
+  Clock y = 2;
   bool strict = 3;
   int32 c = 4;
 }
@@ -52,21 +67,19 @@ message State {
   Federation federation = 2;
 }
 
-message DecisionPoint {
-  State source = 1;
-  repeated Edge edges = 2;
-}
-
 message Edge {
   string id = 1;
   SpecificComponent specific_component = 2;
 }
 
 message Decision {
+  // Only one transition should be possible for the given state and action
   State source = 1;
-  Edge edge = 2;
+  string action = 2;
+  // Only for GUI purposes
+  repeated Edge edges = 3;
 }
 
 message Path {
-  repeated string edge_ids = 1;
+  repeated Decision decisions = 1;
 }
