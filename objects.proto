@@ -53,17 +53,37 @@ message Federation {
   Disjunction disjunction = 1;
 }
 
-message Location {
+
+// Should only be used when quotient adds new locations to the tree
+enum SpecialLocation {
+  UNIVERSAL = 0;
+  ERROR = 1;
+}
+
+// A specific location in a specific component
+message LeafLocation {
   string id = 1;
   SpecificComponent specific_component = 2;
 }
 
-message LocationTuple {
-  repeated Location locations = 1;
+// A combination/pair of locations
+message BranchLocation {
+  LocationTree left = 1;
+  LocationTree right = 2;
+  // Could include composition type too? (e.g. Conjunction, Composition, Quotient, Refinement)
+}
+
+// A binary tree describing a location in a system. It has to be a tree to support the special locations from quotients
+message LocationTree {
+  oneof node_type {
+    LeafLocation leaf_location = 1;
+    BranchLocation branch_location = 2;
+    SpecialLocation special_location = 3;
+  }
 }
 
 message State {
-  LocationTuple location_tuple = 1;
+  LocationTree location_tuple = 1;
   Federation federation = 2;
 }
 
