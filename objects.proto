@@ -98,6 +98,8 @@ message Decision {
   string action = 2;
   // Only for GUI purposes
   repeated Edge edges = 3;
+  // The state that is reached if this decision is taken. Only for GUI purposes.  
+  State destination = 4;
 }
 
 message Path {
