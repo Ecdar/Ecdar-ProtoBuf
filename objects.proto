@@ -8,14 +8,14 @@ option java_outer_classname = "ObjectProtos";
 
 import "component.proto";
 
-message SpecificComponent {
+message ComponentInstance {
   string component_name = 1;
   uint32 component_index = 2;
 }
 
 message Clock {
   message ComponentClock {
-    SpecificComponent specific_component = 1;
+    ComponentInstance component_instance = 1;
     string clock_name = 2;
   }
   message SystemClock {
@@ -53,23 +53,49 @@ message Federation {
   Disjunction disjunction = 1;
 }
 
-message Location {
-  string id = 1;
-  SpecificComponent specific_component = 2;
+
+// Should only be used when quotient adds new locations to the tree
+enum SpecialLocation {
+  UNIVERSAL = 0;
+  ERROR = 1;
 }
 
-message LocationTuple {
-  repeated Location locations = 1;
+// A specific location in a specific component
+message LeafLocation {
+  string id = 1;
+  ComponentInstance component_instance = 2;
+}
+
+// A combination/pair of locations separated by a binary operator (conjunction, composition, quotient, refinement)
+message BinaryLocationOperator {
+  LocationTree left = 1;
+  LocationTree right = 2;
+  enum Operator {
+    CONJUNCTION = 0;
+    COMPOSITION = 1;
+    QUOTIENT = 2;
+    REFINEMENT = 3;
+  }
+  Operator operator = 3;
+}
+
+// A binary tree describing a location in a system. It has to be a tree to support the special locations from quotients
+message LocationTree {
+  oneof node_type {
+    LeafLocation leaf_location = 1;
+    BinaryLocationOperator binary_location_op = 2;
+    SpecialLocation special_location = 3;
+  }
 }
 
 message State {
-  LocationTuple location_tuple = 1;
+  LocationTree location_tree = 1;
   Federation federation = 2;
 }
 
 message Edge {
   string id = 1;
-  SpecificComponent specific_component = 2;
+  ComponentInstance component_instance = 2;
 }
 
 message Decision {
@@ -78,6 +104,8 @@ message Decision {
   string action = 2;
   // Only for GUI purposes
   repeated Edge edges = 3;
+  // The state that is reached if this decision is taken. Only for GUI purposes.  
+  State destination = 4;
 }
 
 message Path {
