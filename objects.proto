@@ -8,14 +8,14 @@ option java_outer_classname = "ObjectProtos";
 
 import "component.proto";
 
-message SpecificComponent {
+message ComponentInstance {
   string component_name = 1;
   uint32 component_index = 2;
 }
 
 message Clock {
   message ComponentClock {
-    SpecificComponent specific_component = 1;
+    ComponentInstance component_instance = 1;
     string clock_name = 2;
   }
   message SystemClock {
@@ -63,33 +63,39 @@ enum SpecialLocation {
 // A specific location in a specific component
 message LeafLocation {
   string id = 1;
-  SpecificComponent specific_component = 2;
+  ComponentInstance component_instance = 2;
 }
 
-// A combination/pair of locations
-message BranchLocation {
+// A combination/pair of locations separated by a binary operator (conjunction, composition, quotient, refinement)
+message BinaryLocationOperator {
   LocationTree left = 1;
   LocationTree right = 2;
-  // Could include composition type too? (e.g. Conjunction, Composition, Quotient, Refinement)
+  enum Operator {
+    CONJUNCTION = 0;
+    COMPOSITION = 1;
+    QUOTIENT = 2;
+    REFINEMENT = 3;
+  }
+  Operator operator = 3;
 }
 
 // A binary tree describing a location in a system. It has to be a tree to support the special locations from quotients
 message LocationTree {
   oneof node_type {
     LeafLocation leaf_location = 1;
-    BranchLocation branch_location = 2;
+    BinaryLocationOperator binary_location_op = 2;
     SpecialLocation special_location = 3;
   }
 }
 
 message State {
-  LocationTree location_tuple = 1;
+  LocationTree location_tree = 1;
   Federation federation = 2;
 }
 
 message Edge {
   string id = 1;
-  SpecificComponent specific_component = 2;
+  ComponentInstance component_instance = 2;
 }
 
 message Decision {
