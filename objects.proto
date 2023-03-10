@@ -49,11 +49,6 @@ message Disjunction {
   repeated Conjunction conjunctions = 1;
 }
 
-message Federation {
-  Disjunction disjunction = 1;
-}
-
-
 // Should only be used when quotient adds new locations to the tree
 enum SpecialLocation {
   UNIVERSAL = 0;
@@ -90,7 +85,7 @@ message LocationTree {
 
 message State {
   LocationTree location_tree = 1;
-  Federation federation = 2;
+  Disjunction zone = 2;
 }
 
 message Edge {
