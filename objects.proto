@@ -21,14 +21,14 @@ message Clock {
   message SystemClock {
     uint32 clock_index = 1;
   }
-  message Zero {}
+  message ZeroClock {}
   oneof clock {
     // When a clock is attached to a component
     ComponentClock component_clock = 1;
     // When a clock is not attached to a component
     SystemClock system_clock = 2;
-    // The zero clock
-    Zero zero = 3;
+    // The zero clock (always has a valuation of 0)
+    ZeroClock zero_clock = 3;
   }
 }
 
