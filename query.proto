@@ -182,7 +182,11 @@ message SimulationStepRequest {
 }
 
 message SimulationStepResponse {
+  // The full state that is reached after the simulation step
+  State full_state = 2;
+  // Possible decisions for subsets of the full state
   repeated Decision new_decision_points = 1;
+
 }
 
 message SimulationInfo {
