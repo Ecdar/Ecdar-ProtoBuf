@@ -9,56 +9,188 @@ option java_outer_classname = "QueryProtos";
 import "component.proto";
 import "objects.proto";
 
-message IgnoredInputOutputs {
-  repeated string ignored_inputs = 1;
-  repeated string ignored_outputs = 2;
+message UserTokenResponse {
+  int32 user_id = 1;
 }
 
-message Query {
-  int32 id = 1;
-  string query = 2;
-  IgnoredInputOutputs ignored_input_outputs = 3;
-}
-message QueryRequest { repeated Query queries = 1; }
+message QueryRequest {
+  int32 user_id = 1;
+  int32 query_id = 2;
+  string query = 3;
+  ComponentsInfo components_info = 4;
 
-message ComponentsUpdateRequest {
-  repeated Component components = 2;
-  int32 etag = 3; // hash
+  message Settings {
+    bool disable_clock_reduction = 1;
+  }
+  
+  Settings settings = 6;
+}
+
+message StateAction {
+  State state = 1;
+  string action = 2;
+}
+
+enum NoInitialState {
+  NO_INITIAL_STATE = 0;
+}
+
+message ActionFailure {
+  enum Relation {
+    NOT_SUBSET = 0;
+    NOT_DISJOINT = 1;
+  }
+  message ActionSet {
+    string system = 1;
+    repeated string actions = 2;
+    bool is_input = 3;
+  }
+  Relation failure = 2;
+  repeated ActionSet action_sets = 3;
 }
 
 message QueryResponse {
-  Query query = 1;
-
-  message RefinementResult {
-    bool success = 1;
-    repeated StateTuple relation = 2;
-  }
+  int32 query_id = 1;
 
   message ComponentResult { Component component = 1; }
-  message ConsistencyResult { bool success = 1; }
-  message DeterminismResult { bool success = 1; }
-  message ImplementationResult { bool success = 1; }
+
+  message RefinementFailure {
+    string system = 1;
+
+    message RefinementStateFailure {
+        enum Unmatched {
+          DELAY = 0;
+          ACTION = 1;
+        }
+        Unmatched unmatched = 1;
+        StateAction state = 2;
+    }
+
+    oneof failure {
+      // The refinement failed for an action in a specific state
+      RefinementStateFailure refinement_state = 2;
+      // The refinement failed because this system was empty
+      string empty_system = 3;
+      // The refinement failed because the initial state was empty
+      NoInitialState no_initial_state = 4;
+      // The refinement failed because a child was inconsistent
+      ConsistencyFailure inconsistent_child = 5;
+      // The refinement failed because the actions mismatched
+      ActionFailure action_mismatch = 6;
+    }
+  }
+
+  message ConsistencyFailure {
+    string system = 1;
+    oneof failure {
+      // The consistency check failed because the initial state was empty
+      NoInitialState no_initial_state = 2;
+      // The consistency check failed because this state was not consistent
+      State failure_state = 3;
+      // The consistency check failed because the system is not deterministic
+      DeterminismFailure determinism = 4;
+    }
+  }
+
+  message DeterminismFailure {
+    string system = 1;
+    // The determinism check failed in this state for this action
+    StateAction failure_state = 2;
+  }
+
+  message ImplementationFailure {
+    string system = 1;
+    oneof failure {
+      // The determinism check failed in this state for this action
+      StateAction failure_state = 2;
+      // The implementation check failed because the system was not consistent
+      ConsistencyFailure consistency = 3;
+    }
+  }
+
+  message ModelFailure {
+    string system = 1;
+
+    oneof failure {
+      // The check failed because the actions mismatched
+      ActionFailure action_mismatch = 2;
+      // The check failed because a conjunction was not consistent
+      ConsistencyFailure inconsistent_conjunction = 3;
+      // Some other model failure
+      string other = 4;
+    }
+  }
+
+  message ReachabilityFailure {
+      enum Failure {
+        UNREACHABLE = 0;
+      }
+      
+      Failure failure = 1;
+  }
+
+  message ReachabilityPath {
+    Path path = 4;
+  }
+  
+  message Success {
+
+  }
+  
+  message Error {
+    string error = 1;
+  }
+
+  message ParsingError {
+    string error = 1;
+  }
 
   oneof result {
-    RefinementResult refinement = 3;
-    ComponentResult component = 4;
-    ConsistencyResult consistency = 5;
-    DeterminismResult determinism = 6;
-    string error = 7;
-    ImplementationResult implementation = 8;
+    Component component = 2;
+    ConsistencyFailure consistency = 3;
+    DeterminismFailure determinism = 4;
+    ImplementationFailure implementation = 5;
+    ReachabilityFailure reachability = 6;
+    RefinementFailure refinement = 7;
+    ReachabilityPath reachability_path = 8;
+    
+    ParsingError parsing_error = 98;
+    ModelFailure model = 99;
+    Success success = 100;
+    Error error = 101;
   }
+
+  message Information {
+    enum Severity {
+      INFO = 0;
+      WARNING = 1;
+    }
+    Severity severity = 1;
+    string subject = 2;
+    string message = 3;
+  }
+  repeated Information info = 200;
 }
 
 message SimulationStartRequest {
-  string system = 1; // e.g. "(A || B) && C" or "A<=B"
+  SimulationInfo simulation_info = 1;
 }
 
 message SimulationStepRequest {
-  StateTuple state = 1;
-  Transition transition = 2;
+  SimulationInfo simulation_info = 1;
+  Decision chosen_decision = 2;
 }
 
 message SimulationStepResponse {
-  StateTuple state = 1;
-  repeated Transition transitions = 2;
+  // The full state that is reached after the simulation step
+  State full_state = 2;
+  // Possible decisions for subsets of the full state
+  repeated Decision new_decision_points = 1;
+
+}
+
+message SimulationInfo {
+  int32 user_id = 1;
+  string component_composition = 2; // example: A || B || A
+  ComponentsInfo components_info = 3;
 }

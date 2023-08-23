@@ -6,22 +6,103 @@ option java_multiple_files = false;
 option java_package = "EcdarProtoBuf";
 option java_outer_classname = "ObjectProtos";
 
-message Zone {
-  int32 dimensions = 1;
-  repeated int32 matrix = 2;
-  // Maybe include a lookup table for the indices?
+import "component.proto";
+
+message ComponentInstance {
+  string component_name = 1;
+  uint32 component_index = 2;
 }
 
-message StateTuple {
-  message LocationTuple {
-    string name = 1;
-    // Maybe the component name? or some comp id?
+message Clock {
+  message ComponentClock {
+    ComponentInstance component_instance = 1;
+    string clock_name = 2;
   }
-  LocationTuple location = 1;
-  repeated Zone federation = 2;
+  message SystemClock {
+    uint32 clock_index = 1;
+  }
+  message ZeroClock {}
+  oneof clock {
+    // When a clock is attached to a component
+    ComponentClock component_clock = 1;
+    // When a clock is not attached to a component
+    SystemClock system_clock = 2;
+    // The zero clock (always has a valuation of 0)
+    ZeroClock zero_clock = 3;
+  }
 }
 
-message Transition {
-  // Figure out what we need here
-  // repeated Edge edges = 1; //?
+
+message Constraint {
+  // This message represents if (strict) { x - y < c } else { x - y <= c }
+  Clock x = 1;
+  Clock y = 2;
+  bool strict = 3;
+  int32 c = 4;
+}
+
+message Conjunction {
+  repeated Constraint constraints = 1;
+}
+
+message Disjunction {
+  repeated Conjunction conjunctions = 1;
+}
+
+// Should only be used when quotient adds new locations to the tree
+enum SpecialLocation {
+  UNIVERSAL = 0;
+  ERROR = 1;
+}
+
+// A specific location in a specific component
+message LeafLocation {
+  string id = 1;
+  ComponentInstance component_instance = 2;
+}
+
+// A combination/pair of locations separated by a binary operator (conjunction, composition, quotient, refinement)
+message BinaryLocationOperator {
+  LocationTree left = 1;
+  LocationTree right = 2;
+  enum Operator {
+    CONJUNCTION = 0;
+    COMPOSITION = 1;
+    QUOTIENT = 2;
+    REFINEMENT = 3;
+  }
+  Operator operator = 3;
+}
+
+// A binary tree describing a location in a system. It has to be a tree to support the special locations from quotients
+message LocationTree {
+  oneof node_type {
+    LeafLocation leaf_location = 1;
+    BinaryLocationOperator binary_location_op = 2;
+    SpecialLocation special_location = 3;
+  }
+}
+
+message State {
+  LocationTree location_tree = 1;
+  Disjunction zone = 2;
+}
+
+message Edge {
+  string id = 1;
+  ComponentInstance component_instance = 2;
+}
+
+message Decision {
+  // Only one transition should be possible for the given state and action
+  State source = 1;
+  string action = 2;
+  // Only for GUI purposes
+  repeated Edge edges = 3;
+  // The state that is reached if this decision is taken. Only for GUI purposes.  
+  State destination = 4;
+}
+
+message Path {
+  repeated Decision decisions = 1;
 }
