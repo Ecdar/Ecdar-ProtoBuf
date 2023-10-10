@@ -145,7 +145,7 @@ message QueryResponse {
     string error = 1;
   }
 
-  message ComponentsNotFoundOrInCache {
+  message ComponentsNotInCache {
 
   }
 
@@ -162,7 +162,7 @@ message QueryResponse {
     ModelFailure model = 99;
     Success success = 100;
     Error error = 101;
-    ComponentsNotFoundOrInCache componentsNotFoundOrInCache = 102;
+    ComponentsNotInCache componentsNotInCache = 102;
   }
 
   message Information {
