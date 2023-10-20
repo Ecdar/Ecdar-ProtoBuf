@@ -22,7 +22,7 @@ message QueryRequest {
   message Settings {
     bool disable_clock_reduction = 1;
   }
-  
+
   Settings settings = 6;
 }
 
@@ -130,24 +130,28 @@ message QueryResponse {
       enum Failure {
         UNREACHABLE = 0;
       }
-      
+
       Failure failure = 1;
   }
 
   message ReachabilityPath {
     Path path = 4;
   }
-  
+
   message Success {
 
   }
-  
+
   message Error {
     string error = 1;
   }
 
   message ParsingError {
     string error = 1;
+  }
+
+  message ComponentsNotInCache {
+
   }
 
   oneof result {
@@ -164,6 +168,7 @@ message QueryResponse {
     ModelFailure model = 99;
     Success success = 100;
     Error error = 101;
+    ComponentsNotInCache componentsNotInCache = 102;
   }
 
   message Information {
