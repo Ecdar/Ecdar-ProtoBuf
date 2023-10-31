@@ -20,7 +20,7 @@ service EcdarBackend {
 }
 
 service EcdarApi {
-    // rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     // rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
     // rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     // rpc SaveModel(SaveModelRequest) returns (SaveModelResponse);
@@ -29,6 +29,7 @@ service EcdarApi {
     // rpc AddUserToModel(AddUserToModelRequest) returns (AddUserToModelResponse);
     // rpc RemoveUserFromModel(RemoveUserFromModelRequest) returns (RemoveUserFromModelResponse);
     // rpc UpdateModelAccess(UpdateModelAccessRequest) returns (UpdateModelAccessResponse);
+
 }
 
 service EcdarApiAuth {
