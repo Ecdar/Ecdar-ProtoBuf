@@ -20,3 +20,7 @@ message GetAuthTokenRequest {
 message GetAuthTokenResponse {
     string token = 1;
 }
+
+message DeleteUserRequest {
+    string token = 1;
+}
