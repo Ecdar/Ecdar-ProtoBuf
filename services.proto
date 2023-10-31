@@ -24,7 +24,7 @@ service EcdarApi {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     rpc CreateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc CreateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc UpdateUser(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
     rpc UpdateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc UpdateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
