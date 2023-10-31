@@ -20,15 +20,16 @@ service EcdarBackend {
 }
 
 service EcdarApi {
-    // rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-    // rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
-    // rpc SaveModel(SaveModelRequest) returns (SaveModelResponse);
-    // rpc LoadModel(LoadModelRequest) returns (LoadModelResponse);
-    // rpc SendQuery(UserQueryRequest) returns (UserQueryResponse);
-    // rpc AddUserToModel(AddUserToModelRequest) returns (AddUserToModelResponse);
-    // rpc RemoveUserFromModel(RemoveUserFromModelRequest) returns (RemoveUserFromModelResponse);
-    // rpc UpdateModelAccess(UpdateModelAccessRequest) returns (UpdateModelAccessResponse);
-
+    rpc GetModel(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc CreateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc CreateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
+    rpc UpdateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc UpdateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+    rpc DeleteModel(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc DeleteAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc ListModelsInfo(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
 
 service EcdarApiAuth {

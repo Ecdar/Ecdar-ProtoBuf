@@ -21,6 +21,11 @@ message GetAuthTokenResponse {
     string token = 1;
 }
 
+message DeleteUserRequest {
+    string token = 1;
+
+}
+
 message CreateUserRequest {
     string username = 1;
     string email = 2;
@@ -30,3 +35,11 @@ message CreateUserRequest {
 message CreateUserResponse {
     string token = 1;
 }
+
+message UpdateUserRequest {
+    string token = 1;
+    optional string username = 2;
+    optional string email = 3;
+    optional string password = 4;
+}
+
