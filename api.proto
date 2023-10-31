@@ -23,4 +23,15 @@ message GetAuthTokenResponse {
 
 message DeleteUserRequest {
     string token = 1;
+
+}
+
+message CreateUserRequest {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message CreateUserResponse {
+    string token = 1;
 }
