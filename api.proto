@@ -9,13 +9,20 @@ option java_outer_classname = "ApiProtos";
 import "component.proto";
 import "objects.proto";
 
-message GetAuthTokenRequest {
-    oneof user {
-        string username = 1;
-        string email = 2;
-    }
-    string password = 3;
-}
+message GetAuthTokenRequest { 
+    oneof auth_option { 
+        UserCredentials user_credentials = 1; 
+        string refresh_token = 2; 
+    } 
+ 
+    message UserCredentials { 
+        oneof user { 
+            string username = 1; 
+            string email = 2; 
+        } 
+        string password = 3; 
+    } 
+} 
 
 message GetAuthTokenResponse {
     string access_token = 1;
