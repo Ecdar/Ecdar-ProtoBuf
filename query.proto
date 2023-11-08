@@ -92,6 +92,11 @@ message QueryResponse {
     }
   }
 
+  message SyntaxFailure {
+    string msg = 1;
+    string path = 2;
+  }
+
   message DeterminismFailure {
     string system = 1;
     // The determinism check failed in this state for this action
@@ -157,7 +162,8 @@ message QueryResponse {
     ReachabilityFailure reachability = 6;
     RefinementFailure refinement = 7;
     ReachabilityPath reachability_path = 8;
-
+    SyntaxFailure syntax = 9;
+    
     ParsingError parsing_error = 98;
     ModelFailure model = 99;
     Success success = 100;
