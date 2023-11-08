@@ -34,5 +34,5 @@ service EcdarApi {
 
 service EcdarApiAuth {
     rpc GetAuthToken(GetAuthTokenRequest) returns (GetAuthTokenResponse);
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty);
 }
