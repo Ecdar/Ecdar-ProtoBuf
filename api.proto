@@ -10,10 +10,7 @@ import "component.proto";
 import "objects.proto";
 
 message GetAuthTokenRequest { 
-    oneof auth_option { 
-        UserCredentials user_credentials = 1; 
-        string refresh_token = 2; 
-    } 
+    optional UserCredentials user_credentials = 1; 
  
     message UserCredentials { 
         oneof user { 
@@ -27,11 +24,6 @@ message GetAuthTokenRequest {
 message GetAuthTokenResponse {
     string access_token = 1;
     string refresh_token = 2;
-}
-
-message DeleteUserRequest {
-    string token = 1;
-
 }
 
 message CreateUserRequest {
