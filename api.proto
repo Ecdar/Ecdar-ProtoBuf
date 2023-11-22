@@ -38,6 +38,13 @@ message UpdateUserRequest {
     optional string password = 3;
 }
 
+message UpdateQueryRequest {
+    optional string string = 1;
+    optional int32 model_id = 2;
+    optional string result = 3;
+    optional bool outdated = 4;
+}
+
 message CreateQueryRequest {
     string string = 1;
     uint32 model_id = 2;
