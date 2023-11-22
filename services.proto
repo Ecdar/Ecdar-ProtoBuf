@@ -29,6 +29,7 @@ service EcdarApi {
     rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc DeleteModel(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc DeleteAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
     rpc ListModelsInfo(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
 
