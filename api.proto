@@ -37,3 +37,8 @@ message UpdateUserRequest {
     optional string email = 2;
     optional string password = 3;
 }
+
+message CreateQueryRequest {
+    string string = 1;
+    uint32 model_id = 2;
+}
