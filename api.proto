@@ -42,3 +42,7 @@ message CreateQueryRequest {
     string string = 1;
     uint32 model_id = 2;
 }
+
+message DeleteQueryRequest {
+    int32 query_id = 1;
+}
