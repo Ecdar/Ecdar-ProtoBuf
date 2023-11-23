@@ -37,3 +37,9 @@ message UpdateUserRequest {
     optional string email = 2;
     optional string password = 3;
 }
+
+message CreateAccessRequest{
+    string role = 1;
+    uint32 model_id = 2;
+    uint32 user_id = 3;
+}
