@@ -43,3 +43,7 @@ message CreateAccessRequest{
     uint32 model_id = 2;
     uint32 user_id = 3;
 }
+
+message UpdateAccessRequest {
+    optional string role = 1;
+}
