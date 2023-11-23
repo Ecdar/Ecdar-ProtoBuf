@@ -37,3 +37,7 @@ message UpdateUserRequest {
     optional string email = 2;
     optional string password = 3;
 }
+
+message UpdateAccessRequest {
+    optional string role = 1;
+}
