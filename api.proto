@@ -37,3 +37,7 @@ message UpdateUserRequest {
     optional string email = 2;
     optional string password = 3;
 }
+
+message DeleteAccessRequest {
+    int32 access_id = 1;
+}
