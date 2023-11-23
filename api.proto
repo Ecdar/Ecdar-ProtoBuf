@@ -47,3 +47,7 @@ message CreateAccessRequest{
 message UpdateAccessRequest {
     optional string role = 1;
 }
+
+message DeleteAccessRequest {
+    int32 access_id = 1;
+}
