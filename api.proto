@@ -67,6 +67,10 @@ message DeleteAccessRequest {
     int32 id = 1;
 }
 
+message DeleteModelRequest {
+    int32 id = 1;
+}
+
 message CreateModelRequest {
     string name = 1;
     ComponentsInfo components_info = 2;
