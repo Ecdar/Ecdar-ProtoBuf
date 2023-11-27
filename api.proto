@@ -37,3 +37,14 @@ message UpdateUserRequest {
     optional string email = 2;
     optional string password = 3;
 }
+
+message ListAccessInfoResponse {
+    repeated AccessInfo AccessInfoList = 1;
+}
+
+message AccessInfo {
+    int32 id = 1;
+    string role = 2;
+    int32 model_id = 3;
+    int32 user_id = 4;
+}
