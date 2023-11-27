@@ -20,7 +20,7 @@ service EcdarBackend {
 }
 
 service EcdarApi {
-    rpc GetModel(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc GetModel(GetModelRequest) returns (GetModelResponse);
     rpc CreateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc UpdateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc DeleteModel(google.protobuf.Empty) returns (google.protobuf.Empty);

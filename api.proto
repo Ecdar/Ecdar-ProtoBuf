@@ -66,3 +66,27 @@ message UpdateAccessRequest {
 message DeleteAccessRequest {
     int32 id = 1;
 }
+
+message Model {
+    int32 id = 1;
+    string name = 2;
+    ComponentsInfo components_info = 3;
+    int32 owner_id = 4;
+}
+
+message Query {
+    int32 id = 1;
+    int32 model_id = 2;
+    string query = 3;
+    string result = 4;
+    bool outdated = 5;
+}
+
+message GetModelRequest {
+    int32 id = 1;
+}
+
+message GetModelResponse {
+    Model model = 1;
+    repeated Query queries = 2;
+}
