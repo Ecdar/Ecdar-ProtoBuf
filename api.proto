@@ -90,3 +90,16 @@ message GetModelResponse {
     Model model = 1;
     repeated Query queries = 2;
 }
+message DeleteModelRequest {
+    int32 id = 1;
+}
+
+message CreateModelRequest {
+    string name = 1;
+    ComponentsInfo components_info = 2;
+    int32 owner_id = 3;
+}
+
+message CreateModelResponse {
+    int32 id = 1;
+}
