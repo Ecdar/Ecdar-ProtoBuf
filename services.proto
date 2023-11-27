@@ -21,15 +21,21 @@ service EcdarBackend {
 
 service EcdarApi {
     rpc GetModel(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc CreateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc CreateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
+    rpc CreateModel(CreateModelRequest) returns (CreateModelResponse);
     rpc UpdateModel(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc UpdateAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc DeleteModel(google.protobuf.Empty) returns (google.protobuf.Empty);
-    rpc DeleteAccess(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc DeleteModel(DeleteModelRequest) returns (google.protobuf.Empty);
     rpc ListAccessInfo(google.protobuf.Empty) returns (ListModelsInfoResponse);
+
+    rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
+    rpc UpdateAccess(UpdateAccessRequest) returns (google.protobuf.Empty);
+    rpc DeleteAccess(DeleteAccessRequest) returns (google.protobuf.Empty);
+
+    rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
+    rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
+
+    rpc CreateQuery(CreateQueryRequest) returns (google.protobuf.Empty);
+    rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
+    rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
 }
 
 service EcdarApiAuth {

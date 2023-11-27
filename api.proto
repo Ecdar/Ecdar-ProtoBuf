@@ -48,3 +48,46 @@ message AccessInfo {
     int32 model_id = 3;
     int32 user_id = 4;
 }
+
+message UpdateQueryRequest {
+    int32 id = 1;
+    string string = 2;
+}
+
+message CreateQueryRequest {
+    string string = 1;
+    int32 model_id = 2;
+}
+
+message DeleteQueryRequest {
+    int32 id = 1;
+}
+
+message CreateAccessRequest{
+    string role = 1;
+    int32 model_id = 2;
+    int32 user_id = 3;
+}
+
+message UpdateAccessRequest {
+    int32 id = 1;
+    string role = 2;
+}
+
+message DeleteAccessRequest {
+    int32 id = 1;
+}
+
+message DeleteModelRequest {
+    int32 id = 1;
+}
+
+message CreateModelRequest {
+    string name = 1;
+    ComponentsInfo components_info = 2;
+    int32 owner_id = 3;
+}
+
+message CreateModelResponse {
+    int32 id = 1;
+}
