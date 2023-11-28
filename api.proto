@@ -100,6 +100,7 @@ message GetModelRequest {
 message GetModelResponse {
     Model model = 1;
     repeated Query queries = 2;
+    bool in_use = 3;
 }
 
 message DeleteModelRequest {
