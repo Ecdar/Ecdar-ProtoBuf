@@ -115,3 +115,10 @@ message CreateModelRequest {
 message CreateModelResponse {
     int32 id = 1;
 }
+
+message UpdateModelRequest {
+    int32 id = 1;
+    optional string name = 2;
+    optional ComponentsInfo components_info = 3;
+    optional int32 owner_id = 4;
+}
