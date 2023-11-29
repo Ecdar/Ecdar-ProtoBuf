@@ -38,7 +38,7 @@ message UpdateUserRequest {
     optional string password = 3;
 }
 
-message ListModelInfoResponse {
+message ListModelsInfoResponse {
     repeated ModelInfo ModelInfoList = 1;
 }
 
