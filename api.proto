@@ -38,6 +38,17 @@ message UpdateUserRequest {
     optional string password = 3;
 }
 
+message ListModelsInfoResponse {
+    repeated ModelInfo ModelInfoList = 1;
+}
+
+message ModelInfo {
+    int32 model_id = 1;
+    string model_name = 2;
+    int32 model_owner_id = 3;
+    string user_role_on_model = 4;
+}
+
 message UpdateQueryRequest {
     int32 id = 1;
     string string = 2;
@@ -67,6 +78,31 @@ message DeleteAccessRequest {
     int32 id = 1;
 }
 
+message Model {
+    int32 id = 1;
+    string name = 2;
+    ComponentsInfo components_info = 3;
+    int32 owner_id = 4;
+}
+
+message Query {
+    int32 id = 1;
+    int32 model_id = 2;
+    string query = 3;
+    string result = 4;
+    bool outdated = 5;
+}
+
+message GetModelRequest {
+    int32 id = 1;
+}
+
+message GetModelResponse {
+    Model model = 1;
+    repeated Query queries = 2;
+    bool in_use = 3;
+}
+
 message DeleteModelRequest {
     int32 id = 1;
 }
@@ -74,7 +110,6 @@ message DeleteModelRequest {
 message CreateModelRequest {
     string name = 1;
     ComponentsInfo components_info = 2;
-    int32 owner_id = 3;
 }
 
 message CreateModelResponse {
