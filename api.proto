@@ -8,6 +8,7 @@ option java_outer_classname = "ApiProtos";
 
 import "component.proto";
 import "objects.proto";
+import "query.proto";
 
 message GetAuthTokenRequest { 
     optional UserCredentials user_credentials = 1; 
@@ -61,6 +62,15 @@ message CreateQueryRequest {
 
 message DeleteQueryRequest {
     int32 id = 1;
+}
+
+message SendQueryRequest {
+    int32 id = 1;
+    int32 model_id = 2;
+}
+
+message SendQueryResponse {
+    QueryResponse response = 1;
 }
 
 message CreateAccessRequest{

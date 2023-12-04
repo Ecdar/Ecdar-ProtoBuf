@@ -36,6 +36,7 @@ service EcdarApi {
     rpc CreateQuery(CreateQueryRequest) returns (google.protobuf.Empty);
     rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
     rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
+    rpc SendQuery(SendQueryRequest) returns (SendQueryResponse);
 }
 
 service EcdarApiAuth {
