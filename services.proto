@@ -25,6 +25,7 @@ service EcdarApi {
     rpc UpdateModel(UpdateModelRequest) returns (google.protobuf.Empty);
     rpc DeleteModel(DeleteModelRequest) returns (google.protobuf.Empty);
     rpc ListModelsInfo(google.protobuf.Empty) returns (ListModelsInfoResponse);
+    rpc ListAccessInfo(ListAccessInfoRequest) returns (ListAccessInfoResponse);
 
     rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
     rpc UpdateAccess(UpdateAccessRequest) returns (google.protobuf.Empty);
