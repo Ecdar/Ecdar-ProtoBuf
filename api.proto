@@ -128,7 +128,7 @@ message ListAccessInfoRequest {
 }
 
 message ListAccessInfoResponse {
-    repeated AccessInfo AccessInfoList = 1;
+    repeated AccessInfo access_info_list = 1;
 }
 
 message AccessInfo {
