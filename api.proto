@@ -128,12 +128,12 @@ message ListAccessInfoRequest {
 }
 
 message ListAccessInfoResponse {
-    repeated AccessInfo access_info = 1;
+    repeated AccessInfo AccessInfoList = 1;
 }
 
 message AccessInfo {
     int32 id = 1;
-    string role = 2;
-    int32 model_id = 3;
-    int32 user_id = 4;
+    int32 model_id = 2;
+    int32 user_id = 3;
+    string role = 4;
 }
