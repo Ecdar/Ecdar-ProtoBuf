@@ -32,6 +32,7 @@ service EcdarApi {
 
     rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
     rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 
     rpc CreateQuery(CreateQueryRequest) returns (google.protobuf.Empty);
     rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
