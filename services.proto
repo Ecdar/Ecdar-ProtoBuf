@@ -19,12 +19,14 @@ service EcdarBackend {
     rpc TakeSimulationStep(SimulationStepRequest) returns (SimulationStepResponse);
 }
 
+// API service, endpoints are protected and require a valid access token
 service EcdarApi {
     rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
     rpc UpdateProject(UpdateProjectRequest) returns (google.protobuf.Empty);
     rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
     rpc ListProjectsInfo(google.protobuf.Empty) returns (ListProjectsInfoResponse);
+    rpc ListAccessInfo(ListAccessInfoRequest) returns (ListAccessInfoResponse);
 
     rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
     rpc UpdateAccess(UpdateAccessRequest) returns (google.protobuf.Empty);
@@ -32,14 +34,21 @@ service EcdarApi {
 
     rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
     rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 
     rpc CreateQuery(CreateQueryRequest) returns (google.protobuf.Empty);
     rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
     rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
     rpc SendQuery(SendQueryRequest) returns (SendQueryResponse);
+
+    // Logout the user by deleting their session identified by the access token
+    rpc DeleteSession(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
 
 service EcdarApiAuth {
+    // Get a new access and refresh token using either a previous refresh token or user credentials
     rpc GetAuthToken(GetAuthTokenRequest) returns (GetAuthTokenResponse);
+
+    // Create a new user with username, email and password
     rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty);
 }

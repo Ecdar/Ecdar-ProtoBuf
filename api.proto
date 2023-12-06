@@ -33,6 +33,18 @@ message CreateUserRequest {
     string password = 3;
 }
 
+message GetUsersRequest {
+    repeated int32 ids = 1;
+}
+
+message GetUsersResponse {
+    message UserInfo {
+        int32 id = 1;
+        string username = 2;
+    }
+    repeated UserInfo users = 1;
+}
+
 message UpdateUserRequest {
     optional string username = 1;
     optional string email = 2;
@@ -76,7 +88,12 @@ message SendQueryResponse {
 message CreateAccessRequest{
     string role = 1;
     int32 project_id = 2;
-    int32 user_id = 3;
+    
+    oneof user {
+        int32 user_id = 3;
+        string username = 4;
+        string email = 5;
+    }
 }
 
 message UpdateAccessRequest {
@@ -131,4 +148,19 @@ message UpdateProjectRequest {
     optional string name = 2;
     optional ComponentsInfo components_info = 3;
     optional int32 owner_id = 4;
+}
+
+message ListAccessInfoRequest {
+    int32 project_id = 1;
+}
+
+message ListAccessInfoResponse {
+    repeated AccessInfo access_info_list = 1;
+}
+
+message AccessInfo {
+    int32 id = 1;
+    int32 project_id = 2;
+    int32 user_id = 3;
+    string role = 4;
 }
