@@ -33,6 +33,18 @@ message CreateUserRequest {
     string password = 3;
 }
 
+message GetUsersRequest {
+    repeated int32 ids = 1;
+}
+
+message GetUsersResponse {
+    message UserInfo {
+        int32 id = 1;
+        string username = 2;
+    }
+    repeated UserInfo users = 1;
+}
+
 message UpdateUserRequest {
     optional string username = 1;
     optional string email = 2;
