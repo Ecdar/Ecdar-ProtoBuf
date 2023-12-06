@@ -19,6 +19,7 @@ service EcdarBackend {
     rpc TakeSimulationStep(SimulationStepRequest) returns (SimulationStepResponse);
 }
 
+// API service, endpoints are protected and require a valid access token
 service EcdarApi {
     rpc GetModel(GetModelRequest) returns (GetModelResponse);
     rpc CreateModel(CreateModelRequest) returns (CreateModelResponse);
@@ -37,9 +38,15 @@ service EcdarApi {
     rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
     rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
     rpc SendQuery(SendQueryRequest) returns (SendQueryResponse);
+
+    // Logout the user by deleting their session identified by the access token
+    rpc DeleteSession(google.protobuf.Empty) returns (google.protobuf.Empty);
 }
 
 service EcdarApiAuth {
+    // Get a new access and refresh token using either a previous refresh token or user credentials
     rpc GetAuthToken(GetAuthTokenRequest) returns (GetAuthTokenResponse);
+
+    // Create a new user with username, email and password
     rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty);
 }
