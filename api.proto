@@ -39,15 +39,15 @@ message UpdateUserRequest {
     optional string password = 3;
 }
 
-message ListModelsInfoResponse {
-    repeated ModelInfo ModelInfoList = 1;
+message ListProjectsInfoResponse {
+    repeated ProjectInfo ProjectInfoList = 1;
 }
 
-message ModelInfo {
-    int32 model_id = 1;
-    string model_name = 2;
-    int32 model_owner_id = 3;
-    string user_role_on_model = 4;
+message ProjectInfo {
+    int32 project_id = 1;
+    string project_name = 2;
+    int32 project_owner_id = 3;
+    string user_role_on_project = 4;
 }
 
 message UpdateQueryRequest {
@@ -57,7 +57,7 @@ message UpdateQueryRequest {
 
 message CreateQueryRequest {
     string string = 1;
-    int32 model_id = 2;
+    int32 project_id = 2;
 }
 
 message DeleteQueryRequest {
@@ -66,7 +66,7 @@ message DeleteQueryRequest {
 
 message SendQueryRequest {
     int32 id = 1;
-    int32 model_id = 2;
+    int32 project_id = 2;
 }
 
 message SendQueryResponse {
@@ -75,7 +75,7 @@ message SendQueryResponse {
 
 message CreateAccessRequest{
     string role = 1;
-    int32 model_id = 2;
+    int32 project_id = 2;
     int32 user_id = 3;
 }
 
@@ -88,7 +88,7 @@ message DeleteAccessRequest {
     int32 id = 1;
 }
 
-message Model {
+message Project {
     int32 id = 1;
     string name = 2;
     ComponentsInfo components_info = 3;
@@ -97,36 +97,36 @@ message Model {
 
 message Query {
     int32 id = 1;
-    int32 model_id = 2;
+    int32 project_id = 2;
     string query = 3;
     string result = 4;
     bool outdated = 5;
 }
 
-message GetModelRequest {
+message GetProjectRequest {
     int32 id = 1;
 }
 
-message GetModelResponse {
-    Model model = 1;
+message GetProjectResponse {
+    Project project = 1;
     repeated Query queries = 2;
     bool in_use = 3;
 }
 
-message DeleteModelRequest {
+message DeleteProjectRequest {
     int32 id = 1;
 }
 
-message CreateModelRequest {
+message CreateProjectRequest {
     string name = 1;
     ComponentsInfo components_info = 2;
 }
 
-message CreateModelResponse {
+message CreateProjectResponse {
     int32 id = 1;
 }
 
-message UpdateModelRequest {
+message UpdateProjectRequest {
     int32 id = 1;
     optional string name = 2;
     optional ComponentsInfo components_info = 3;

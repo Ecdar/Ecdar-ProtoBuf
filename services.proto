@@ -20,11 +20,11 @@ service EcdarBackend {
 }
 
 service EcdarApi {
-    rpc GetModel(GetModelRequest) returns (GetModelResponse);
-    rpc CreateModel(CreateModelRequest) returns (CreateModelResponse);
-    rpc UpdateModel(UpdateModelRequest) returns (google.protobuf.Empty);
-    rpc DeleteModel(DeleteModelRequest) returns (google.protobuf.Empty);
-    rpc ListModelsInfo(google.protobuf.Empty) returns (ListModelsInfoResponse);
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse);
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+    rpc UpdateProject(UpdateProjectRequest) returns (google.protobuf.Empty);
+    rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
+    rpc ListProjectsInfo(google.protobuf.Empty) returns (ListProjectsInfoResponse);
 
     rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
     rpc UpdateAccess(UpdateAccessRequest) returns (google.protobuf.Empty);
