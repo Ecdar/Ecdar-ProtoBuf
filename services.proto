@@ -51,4 +51,5 @@ service EcdarApiAuth {
 
     // Create a new user with username, email and password
     rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty);
+    rpc Endpoints(google.protobuf.Empty) returns (EndpointsResponse);
 }

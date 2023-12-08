@@ -10,17 +10,17 @@ import "component.proto";
 import "objects.proto";
 import "query.proto";
 
-message GetAuthTokenRequest { 
-    optional UserCredentials user_credentials = 1; 
- 
-    message UserCredentials { 
-        oneof user { 
-            string username = 1; 
-            string email = 2; 
-        } 
-        string password = 3; 
-    } 
-} 
+message GetAuthTokenRequest {
+    optional UserCredentials user_credentials = 1;
+
+    message UserCredentials {
+        oneof user {
+            string username = 1;
+            string email = 2;
+        }
+        string password = 3;
+    }
+}
 
 message GetAuthTokenResponse {
     string access_token = 1;
@@ -88,7 +88,7 @@ message SendQueryResponse {
 message CreateAccessRequest{
     string role = 1;
     int32 project_id = 2;
-    
+
     oneof user {
         int32 user_id = 3;
         string username = 4;
@@ -163,4 +163,8 @@ message AccessInfo {
     int32 project_id = 2;
     int32 user_id = 3;
     string role = 4;
+}
+
+message EndpointsResponse {
+	repeated string endpoints = 1;
 }
