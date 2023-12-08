@@ -26,8 +26,8 @@ service EcdarApi {
     rpc UpdateProject(UpdateProjectRequest) returns (google.protobuf.Empty);
     rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
     rpc ListProjectsInfo(google.protobuf.Empty) returns (ListProjectsInfoResponse);
-    rpc ListAccessInfo(ListAccessInfoRequest) returns (ListAccessInfoResponse);
 
+    rpc ListAccessInfo(ListAccessInfoRequest) returns (ListAccessInfoResponse);
     rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
     rpc UpdateAccess(UpdateAccessRequest) returns (google.protobuf.Empty);
     rpc DeleteAccess(DeleteAccessRequest) returns (google.protobuf.Empty);
