@@ -36,9 +36,13 @@ service EcdarApi {
     rpc DeleteUser(google.protobuf.Empty) returns (google.protobuf.Empty);
     rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 
+    // The three endpoints below are planned to be deprecated
+    // Query handling will become part of `UpdateProject`
     rpc CreateQuery(CreateQueryRequest) returns (google.protobuf.Empty);
     rpc UpdateQuery(UpdateQueryRequest) returns (google.protobuf.Empty);
     rpc DeleteQuery(DeleteQueryRequest) returns (google.protobuf.Empty);
+
+    // Same as `SendQuery` in the `EcdarBackend` service but also saves the result of the query in th DB
     rpc SendQuery(SendQueryRequest) returns (SendQueryResponse);
 
     // Logout the user by deleting their session identified by the access token
