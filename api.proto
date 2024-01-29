@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package EcdarProtoBuf;
+
+option java_multiple_files = false;
+option java_package = "EcdarProtoBuf";
+option java_outer_classname = "ApiProtos";
+
+import "component.proto";
+import "objects.proto";
+import "query.proto";
+
+message GetAuthTokenRequest {
+    optional UserCredentials user_credentials = 1;
+
+    message UserCredentials {
+        oneof user {
+            string username = 1;
+            string email = 2;
+        }
+        string password = 3;
+    }
+}
+
+message GetAuthTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message CreateUserRequest {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message GetUsersRequest {
+    repeated int32 ids = 1;
+}
+
+message GetUsersResponse {
+    message UserInfo {
+        int32 id = 1;
+        string username = 2;
+    }
+    repeated UserInfo users = 1;
+}
+
+message UpdateUserRequest {
+    optional string username = 1;
+    optional string email = 2;
+    optional string password = 3;
+}
+
+message ListProjectsInfoResponse {
+    repeated ProjectInfo ProjectInfoList = 1;
+}
+
+message ProjectInfo {
+    int32 project_id = 1;
+    string project_name = 2;
+    int32 project_owner_id = 3;
+    string user_role_on_project = 4;
+}
+
+message UpdateQueryRequest {
+    int32 id = 1;
+    string string = 2;
+}
+
+message CreateQueryRequest {
+    string string = 1;
+    int32 project_id = 2;
+}
+
+message DeleteQueryRequest {
+    int32 id = 1;
+}
+
+message SendQueryRequest {
+    int32 id = 1;
+    int32 project_id = 2;
+}
+
+message SendQueryResponse {
+    QueryResponse response = 1;
+}
+
+message CreateAccessRequest{
+    string role = 1;
+    int32 project_id = 2;
+
+    oneof user {
+        int32 user_id = 3;
+        string username = 4;
+        string email = 5;
+    }
+}
+
+message UpdateAccessRequest {
+    int32 id = 1;
+    string role = 2;
+}
+
+message DeleteAccessRequest {
+    int32 id = 1;
+}
+
+message Project {
+    int32 id = 1;
+    string name = 2;
+    ComponentsInfo components_info = 3;
+    int32 owner_id = 4;
+}
+
+message Query {
+    int32 id = 1;
+    int32 project_id = 2;
+    string query = 3;
+    string result = 4;
+    bool outdated = 5;
+}
+
+message GetProjectRequest {
+    int32 id = 1;
+}
+
+message GetProjectResponse {
+    Project project = 1;
+    repeated Query queries = 2;
+    bool in_use = 3;
+}
+
+message DeleteProjectRequest {
+    int32 id = 1;
+}
+
+message CreateProjectRequest {
+    string name = 1;
+    ComponentsInfo components_info = 2;
+}
+
+message CreateProjectResponse {
+    int32 id = 1;
+}
+
+message UpdateProjectRequest {
+    int32 id = 1;
+    optional string name = 2;
+    optional ComponentsInfo components_info = 3;
+    optional int32 owner_id = 4;
+}
+
+message ListAccessInfoRequest {
+    int32 project_id = 1;
+}
+
+message ListAccessInfoResponse {
+    repeated AccessInfo access_info_list = 1;
+}
+
+message AccessInfo {
+    int32 id = 1;
+    int32 project_id = 2;
+    int32 user_id = 3;
+    string role = 4;
+}
+
+message EndpointsResponse {
+	repeated string endpoints = 1;
+}
